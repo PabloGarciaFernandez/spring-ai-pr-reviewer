@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: spring-ai-workshop
+  ai:
+    azure:
+      openai:
+        api-key: ${MODEL_API_KEY}
+        endpoint: ${MODEL_ENDPOINT}
+        chat:
+          options:
+            model: ${MODEL_NAME}
+            deployment-name: ${DEPLOYMENT_NAME}
+            temperature: ${TEMPERATURE:1}
+    mcp:
+      client:
+        stdio:
+          connections:
+            github:
+              command: docker
+              args:
+                - run
+                - -i
+                - --rm
+                - -e
+                - GITHUB_PERSONAL_ACCESS_TOKEN
+                - mcp/github
+              env:
+                GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_PERSONAL_ACCESS_TOKEN}
