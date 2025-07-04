@@ -5,7 +5,7 @@ on:
 
 jobs:
   ai-pr-review:
-    uses: PabloGarciaFernandez/spring-ai-pr-reviewer/.github/workflows/ai-pr-review.yml@master
+    uses: PabloGarciaFernandez/spring-ai-pr-reviewer/.github/workflows/ai-pr-review.yaml@master
     with:
       project-name: ${{ github.repository }}
       pull-request-id: ${{ github.event.pull_request.number }}
