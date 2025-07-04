@@ -34,7 +34,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
-          java-version: '24-jdk'
+          java-version: '24'
 
       - name: Build Application
         run: mvn clean package -DskipTest
