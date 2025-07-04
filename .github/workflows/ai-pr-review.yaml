@@ -39,6 +39,9 @@ jobs:
       - name: Build Application
         run: mvn clean package -DskipTest
 
+      - name: Build Docker Image
+        run: docker build -t spring-ai-pr-reviewer .
+
       - name: Run Reviewer container with env variables
         run: |
           docker run -d --name spring-ai-pr-reviewer \
