@@ -1,0 +1,59 @@
+name: AI Pull Request review
+
+on:
+  workflow_call:
+    inputs:
+      project-name:
+        description: "Name of the project that the AI will review, ex: organization/project"
+        required: true
+        type: string
+      pull-request-id:
+        description: "Number of the pr that the AI will review, ex: 15"
+        required: true
+        type: number
+    secrets:
+      MODEL_API_KEY:
+        required: true
+      MODEL_NAME:
+        required: true
+      MODEL_ENDPOINT:
+        required: true
+      DEPLOYMENT_NAME:
+        required: true
+      PERSONAL_ACCESS_TOKEN:
+        required: true
+
+jobs:
+  up:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Application
+        run: ./mvnw clean package -DskipTests
+
+      - name: Build Docker Image
+        run: docker build -t spring-ai-pr-reviewer .
+
+      - name: Run Reviewer container with env variables
+        run: |
+          docker run -d --name spring-ai-pr-reviewer \
+            -e MODEL_API_KEY=${{ secrets.MODEL_API_KEY }} \
+            -e MODEL_NAME=${{ secrets.MODEL_NAME }} \
+            -e MODEL_ENDPOINT=${{ secrets.MODEL_ENDPOINT }} \
+            -e DEPLOYMENT_NAME=${{ secrets.DEPLOYMENT_NAME }} \
+            -e PERSONAL_ACCESS_TOKEN=${{ secrets.PERSONAL_ACCESS_TOKEN }} \
+            -p 8080:8080 \
+            spring-ai-pr-reviewer
+
+      - name: Wait for Health
+        run: until curl -f http://localhost:8080/actuator/health; do sleep 10; done
+
+      - name: Run Review
+        run: |
+          curl -X POST "http://localhost:8080/review?project=${{ inputs.project-name }}&pullrequest=${{ inputs.pull-request-id }}"
+
+      - name: Stop and remove Reviewer container
+        if: always()
+        run: docker stop spring-ai-pr-reviewer && docker rm spring-ai-pr-reviewer

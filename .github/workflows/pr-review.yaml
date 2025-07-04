@@ -1,0 +1,17 @@
+name: Review PR with AI
+
+on:
+  pull_request:
+
+jobs:
+  ai-pr-review:
+    uses: PabloGarciaFernandez/spring-ai-pr-reviewer/.github/workflows/ai-pr-review.yml@main
+    with:
+      project-name: ${{ github.repository }}
+      pull-request-id: ${{ github.event.pull_request.number }}
+    secrets:
+      MODEL_API_KEY: ${{ secrets.MODEL_API_KEY }}
+      MODEL_NAME: ${{ secrets.MODEL_NAME }}
+      MODEL_ENDPOINT: ${{ secrets.MODEL_ENDPOINT }}
+      DEPLOYMENT_NAME: ${{ secrets.DEPLOYMENT_NAME }}
+      PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}

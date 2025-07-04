@@ -20,6 +20,9 @@ Review Criteria (Apply Only to the PR Diff):
 - Dead code: Ensure there is no commented-out or obsolete code left in the diff.
 
 Output Format (Structured & Clean):
+Post a **single comment in the pull request**, containing all your findings. Do not post inline comments.
+
+The comment must follow this structure:
 
 Summary:
 Provide a concise summary of the key findings. Highlight whether the code generally adheres to standards or if there are areas of concern.

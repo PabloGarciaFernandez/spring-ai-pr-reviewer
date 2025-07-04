@@ -23,7 +23,8 @@ public class ReviewService {
     private SystemPromptTemplate systemPromptTemplate;
 
     public String review (String pullrequest, String project) {
-        var userMessage = new UserMessage("Run review pipeline for current project and pull request");
+        var userMessage = new UserMessage("""
+        Run review pipeline for current project and pull request.""");
         var systemMessage = systemPromptTemplate.createMessage(Map.of("pullrequest", pullrequest, "project", project));
 
         ChatOptions chatOptions = ToolCallingChatOptions.builder()
