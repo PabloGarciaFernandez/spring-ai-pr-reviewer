@@ -11,6 +11,7 @@ import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
 import org.springframework.ai.model.tool.ToolCallingChatOptions;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,10 @@ public class ReviewService {
                 .getResult()
                 .getOutput()
                 .getText();
+    }
+
+    private void answerPullRequest(String pullrequest, String project) {
+        var superSystemMessage = systemPromptTemplate.createMessage(Map.of("pullrequest", pullrequest, "project", project));
     }
 
 }

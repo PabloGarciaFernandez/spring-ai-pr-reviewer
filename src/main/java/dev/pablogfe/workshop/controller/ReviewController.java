@@ -16,4 +16,10 @@ public class ReviewController {
     public String reviewPullRequest(@RequestParam String pullrequest, @RequestParam String project) {
         return reviewService.review(pullrequest, project);
     }
+
+    @GetMapping("anwer")
+    public String answerPullRequest(@RequestParam String pullrequest, @RequestParam String project) {
+        //return reviewService.answerPullRequest(pullrequest, project);
+        return "";
+    }
 }
