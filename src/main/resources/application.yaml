@@ -26,3 +26,12 @@ spring:
                 - mcp/github
               env:
                 GITHUB_PERSONAL_ACCESS_TOKEN: ${PERSONAL_ACCESS_TOKEN}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+      access: read_only
