@@ -57,7 +57,7 @@ jobs:
         run: |
           while ! curl -f http://localhost:8080/actuator/health; do
             echo "Esperando que la app esté lista..."
-            docker logs --tail 20 spring-ai-pr-reviewer
+            docker logs --tail 150 spring-ai-pr-reviewer
             sleep 10
           done
 
