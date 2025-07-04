@@ -53,8 +53,13 @@ jobs:
             -p 8080:8080 \
             spring-ai-pr-reviewer
 
-      - name: Wait for Health
-        run: until curl -f http://localhost:8080/actuator/health; do sleep 10; done
+      - name: Tail logs and wait for health
+        run: |
+          while ! curl -f http://localhost:8080/actuator/health; do
+            echo "Esperando que la app esté lista..."
+            docker logs --tail 20 spring-ai-pr-reviewer
+            sleep 10
+          done
 
       - name: Run Review
         run: |
