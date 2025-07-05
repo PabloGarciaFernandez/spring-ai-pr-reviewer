@@ -63,7 +63,8 @@ jobs:
 > certutil -encode github-api-app.private-key.der private-key.base64
 > ```
 >
-> The resulting `private-key.base64` file can then be copied into your environment variable (`PEM`), include the headers, it will be removed in the code.
+> The resulting `private-key.base64` file can then be copied into your environment variable (`PEM`), for the env 
+> variable do not include the headers and fix the certificate into a single line.
 
 
 ## 🌍 Notes on Model Providers

@@ -47,12 +47,7 @@ public class AppConfiguration {
     }
 
     private RSAPrivateKey getPrivateKeyFromPEM() throws Exception {
-        byte[] keyBytes = Base64.getDecoder().decode(
-                environmentVariables.getPem()
-                    .replace("-----BEGIN CERTIFICATE-----", "")
-                    .replace("-----END CERTIFICATE-----", "")
-                    .replaceAll("\\s+", "")
-        );
+        byte[] keyBytes = Base64.getDecoder().decode(environmentVariables.getPem());
 
         PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
         KeyFactory kf = KeyFactory.getInstance("RSA");
