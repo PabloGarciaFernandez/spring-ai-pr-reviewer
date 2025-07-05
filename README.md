@@ -31,6 +31,7 @@ jobs:
       MODEL_ENDPOINT: ${{ secrets.MODEL_ENDPOINT }}
       DEPLOYMENT_NAME: ${{ secrets.DEPLOYMENT_NAME }}
       PERSONAL_ACCESS_TOKEN: ${{ secrets.JSON_WEB_TOKEN }}
+      INSTALLATION: ${{ secrets.INSTALLATION }}
 ```
 
 ### 🔑 Required Secrets
@@ -42,6 +43,7 @@ jobs:
 | `MODEL_ENDPOINT`  | Endpoint URL of the Azure OpenAI resource.              |
 | `DEPLOYMENT_NAME` | Name of the Azure OpenAI deployment.                    |
 | `JSON_WEB_TOKEN`  | GitHub App token with permission to comment on PRs.     |
+| `INSTALLATION`    | GitHub App installation id.                             |
 
 ## 🌍 Notes on Model Providers
 

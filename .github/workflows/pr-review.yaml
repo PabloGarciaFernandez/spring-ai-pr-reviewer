@@ -15,3 +15,4 @@ jobs:
       MODEL_ENDPOINT: ${{ secrets.MODEL_ENDPOINT }}
       DEPLOYMENT_NAME: ${{ secrets.DEPLOYMENT_NAME }}
       JSON_WEB_TOKEN: ${{ secrets.JSON_WEB_TOKEN }}
+      INSTALLATION: ${{ secrets.INSTALLATION }}

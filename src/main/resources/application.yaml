@@ -22,3 +22,4 @@ management:
       access: read_only
 configuration:
   json-web-token: ${JSON_WEB_TOKEN}
+  installation: ${INSTALLATION}

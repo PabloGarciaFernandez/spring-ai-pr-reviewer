@@ -24,6 +24,10 @@ public class AppConfiguration {
     @Getter
     private String jsonWebToken;
 
+    @Setter
+    @Getter
+    private Long installation;
+
     @Bean
     public SystemPromptTemplate systemPromptTemplate() {
         return new SystemPromptTemplate(promptResource);
@@ -31,7 +35,10 @@ public class AppConfiguration {
 
     @Bean
     public GitHub gitHub() throws IOException {
-        return new GitHubBuilder().withJwtToken(jsonWebToken).build();
+        var gitHubApp = new GitHubBuilder().withJwtToken(jsonWebToken).build();
+        var gitHubAppInstallation = gitHubApp.getApp().getInstallationById(installation);
+        var installationToken = gitHubAppInstallation.createToken().create();
+        return new GitHubBuilder().withAppInstallationToken(installationToken.getToken()).build();
     }
 
 }
