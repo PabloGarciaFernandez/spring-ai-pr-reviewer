@@ -56,14 +56,18 @@ jobs:
       - name: Tail logs and wait for health
         run: |
           while ! curl -f http://localhost:8080/actuator/health; do
-            echo "Esperando que la app esté lista..."
+            echo "Waiting app to be ready..."
             docker logs --tail 150 spring-ai-pr-reviewer
             sleep 10
           done
 
       - name: Run Review
         run: |
-          curl -X POST "http://localhost:8080/review?project=${{ inputs.project-name }}&pullrequest=${{ inputs.pull-request-id }}"
+          while ! curl -X POST "http://localhost:8080/review?project=${{ inputs.project-name }}&pullrequest=${{ inputs.pull-request-id }}" do
+            echo "Reviewing logs while reviewer proccess..."
+            docker logs --tail 150 spring-ai-pr-reviewer
+            sleep 10
+          done
 
       - name: Stop and remove Reviewer container
         if: always()
