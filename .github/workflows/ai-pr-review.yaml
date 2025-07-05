@@ -63,7 +63,7 @@ jobs:
 
       - name: Run Review
         run: |
-          while ! curl -X POST "http://localhost:8080/review?project=${{ inputs.project-name }}&pullrequest=${{ inputs.pull-request-id }}" do
+          while ! curl -X POST "http://localhost:8080/review?project=${{ inputs.project-name }}&pullrequest=${{ inputs.pull-request-id }}"; do
             echo "Reviewing logs while reviewer proccess..."
             docker logs --tail 150 spring-ai-pr-reviewer
             sleep 10
