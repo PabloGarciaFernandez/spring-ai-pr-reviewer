@@ -25,6 +25,8 @@ public class ReviewService {
         Run review pipeline for current project and pull request.""");
         var systemMessage = systemPromptTemplate.createMessage(Map.of("pullrequest", pullrequest, "project", project));
 
+        //include somehow jira and confluence tools
+
         return ChatClient.create(chatModel)
                 .prompt(new Prompt(List.of(userMessage, systemMessage)))
                 .tools(gitHubTools)
