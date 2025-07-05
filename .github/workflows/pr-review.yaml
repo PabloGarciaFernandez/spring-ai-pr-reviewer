@@ -10,6 +10,7 @@ jobs:
       project-name: ${{ github.repository }}
       pull-request-id: ${{ github.event.pull_request.number }}
     secrets:
+      PROVIDER: ${{ secrets.PROVIDER }}
       MODEL_API_KEY: ${{ secrets.MODEL_API_KEY }}
       MODEL_NAME: ${{ secrets.MODEL_NAME }}
       MODEL_ENDPOINT: ${{ secrets.MODEL_ENDPOINT }}
@@ -17,3 +18,5 @@ jobs:
       INSTALLATION: ${{ secrets.INSTALLATION }}
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
       PEM: ${{ secrets.PEM }}
+      TEMPERATURE: ${{ secrets.TEMPERATURE }}
+      COMPLETIONS: ${{ secrets.COMPLETIONS }}

@@ -12,6 +12,8 @@ on:
         required: true
         type: number
     secrets:
+      PROVIDER:
+        required: true
       MODEL_API_KEY:
         required: true
       MODEL_NAME:
@@ -19,13 +21,17 @@ on:
       MODEL_ENDPOINT:
         required: true
       DEPLOYMENT_NAME:
-        required: true
+        required: false
       PEM:
         required: true
       CLIENT_ID:
         required: true
       INSTALLATION:
         required: true
+      TEMPERATURE:
+        required: false
+      COMPLETIONS:
+        required: false
 
 jobs:
   up:
@@ -48,16 +54,21 @@ jobs:
 
       - name: Run Reviewer container with env variables
         run: |
-          docker run -d --name spring-ai-pr-reviewer \
-            -e MODEL_API_KEY=${{ secrets.MODEL_API_KEY }} \
-            -e MODEL_NAME=${{ secrets.MODEL_NAME }} \
-            -e MODEL_ENDPOINT=${{ secrets.MODEL_ENDPOINT }} \
-            -e DEPLOYMENT_NAME=${{ secrets.DEPLOYMENT_NAME }} \
-            -e CLIENT_ID=${{ secrets.CLIENT_ID }} \
-            -e PEM=${{ secrets.PEM }} \
-            -e INSTALLATION=${{ secrets.INSTALLATION }} \
-            -p 8080:8080 \
-            spring-ai-pr-reviewer
+          docker_run_args="-d --name spring-ai-pr-reviewer -p 8080:8080"
+
+          docker_run_args="$docker_run_args -e PROVIDER=${{ secrets.PROVIDER }}"
+          docker_run_args="$docker_run_args -e MODEL_API_KEY=${{ secrets.MODEL_API_KEY }}"
+          docker_run_args="$docker_run_args -e MODEL_NAME=${{ secrets.MODEL_NAME }}"
+          docker_run_args="$docker_run_args -e MODEL_ENDPOINT=${{ secrets.MODEL_ENDPOINT }}"
+          docker_run_args="$docker_run_args -e PEM=${{ secrets.PEM }}"
+          docker_run_args="$docker_run_args -e CLIENT_ID=${{ secrets.CLIENT_ID }}"
+          docker_run_args="$docker_run_args -e INSTALLATION=${{ secrets.INSTALLATION }}"
+
+          [ -n "${{ secrets.DEPLOYMENT_NAME }}" ] && docker_run_args="$docker_run_args -e DEPLOYMENT_NAME=${{ secrets.DEPLOYMENT_NAME }}"
+          [ -n "${{ secrets.TEMPERATURE }}" ] && docker_run_args="$docker_run_args -e TEMPERATURE=${{ secrets.TEMPERATURE }}"
+          [ -n "${{ secrets.COMPLETIONS }}" ] && docker_run_args="$docker_run_args -e COMPLETIONS=${{ secrets.COMPLETIONS }}"
+
+          docker run $docker_run_args spring-ai-pr-reviewer
 
       - name: Tail logs and wait for health
         run: |
