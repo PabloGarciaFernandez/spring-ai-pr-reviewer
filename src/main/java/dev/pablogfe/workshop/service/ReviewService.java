@@ -1,7 +1,7 @@
 package dev.pablogfe.workshop.service;
 
 import dev.pablogfe.workshop.tool.GitHubTools;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.ai.azure.openai.AzureOpenAiChatModel;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ReviewService {
 
-    private AzureOpenAiChatModel chatModel;
-    private SystemPromptTemplate systemPromptTemplate;
-    private GitHubTools gitHubTools;
+    private final AzureOpenAiChatModel chatModel;
+    private final SystemPromptTemplate systemPromptTemplate;
+    private final GitHubTools gitHubTools;
 
     public String review (String pullrequest, String project) {
         var userMessage = new UserMessage("""
