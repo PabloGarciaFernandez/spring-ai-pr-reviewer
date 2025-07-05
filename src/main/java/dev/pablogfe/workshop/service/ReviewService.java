@@ -2,7 +2,6 @@ package dev.pablogfe.workshop.service;
 
 import dev.pablogfe.workshop.tool.GitHubTools;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ai.azure.openai.AzureOpenAiChatModel;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.model.ChatModel;
