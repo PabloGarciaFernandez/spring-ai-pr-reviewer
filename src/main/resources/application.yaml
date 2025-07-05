@@ -12,7 +12,7 @@ spring:
           options:
             model: ${MODEL_NAME}
             deployment-name: ${DEPLOYMENT_NAME}
-            temperature: ${TEMPERATURE:0.7}
+            temperature: ${TEMPERATURE:1}
     anthropic:
       api-key: ${MODEL_API_KEY}
       base-url: ${MODEL_ENDPOINT}
