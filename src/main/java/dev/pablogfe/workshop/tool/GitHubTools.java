@@ -1,7 +1,7 @@
 package dev.pablogfe.workshop.tool;
 
 import dev.pablogfe.workshop.model.*;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.kohsuke.github.*;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class GitHubTools {
 
     private final GitHub github;
