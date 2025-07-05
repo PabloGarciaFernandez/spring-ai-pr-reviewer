@@ -11,18 +11,14 @@ spring:
             model: ${MODEL_NAME}
             deployment-name: ${DEPLOYMENT_NAME}
             temperature: ${TEMPERATURE:1}
-    mcp:
-      client:
-        stdio:
-          connections:
-            github:
-              command: docker
-              args:
-                - run
-                - -i
-                - --rm
-                - -e
-                - GITHUB_PERSONAL_ACCESS_TOKEN
-                - mcp/github
-              env:
-                GITHUB_PERSONAL_ACCESS_TOKEN: ${PERSONAL_ACCESS_TOKEN}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+      access: read_only
+configuration:
+  personal-access-token: ${PERSONAL_ACCESS_TOKEN}
