@@ -21,4 +21,4 @@ management:
       show-details: always
       access: read_only
 configuration:
-  personal-access-token: ${PERSONAL_ACCESS_TOKEN}
+  json-web-token: ${JSON_WEB_TOKEN}

@@ -22,7 +22,7 @@ public class AppConfiguration {
 
     @Setter
     @Getter
-    private String personalAccessToken;
+    private String jsonWebToken;
 
     @Bean
     public SystemPromptTemplate systemPromptTemplate() {
@@ -31,7 +31,7 @@ public class AppConfiguration {
 
     @Bean
     public GitHub gitHub() throws IOException {
-        return new GitHubBuilder().withOAuthToken(personalAccessToken).build();
+        return new GitHubBuilder().withJwtToken(jsonWebToken).build();
     }
 
 }
