@@ -14,5 +14,6 @@ jobs:
       MODEL_NAME: ${{ secrets.MODEL_NAME }}
       MODEL_ENDPOINT: ${{ secrets.MODEL_ENDPOINT }}
       DEPLOYMENT_NAME: ${{ secrets.DEPLOYMENT_NAME }}
-      JSON_WEB_TOKEN: ${{ secrets.JSON_WEB_TOKEN }}
       INSTALLATION: ${{ secrets.INSTALLATION }}
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      PEM: ${{ secrets.PEM }}

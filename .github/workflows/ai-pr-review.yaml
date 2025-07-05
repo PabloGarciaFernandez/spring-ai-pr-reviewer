@@ -20,7 +20,9 @@ on:
         required: true
       DEPLOYMENT_NAME:
         required: true
-      JSON_WEB_TOKEN:
+      PEM:
+        required: true
+      CLIENT_ID:
         required: true
       INSTALLATION:
         required: true
@@ -51,7 +53,8 @@ jobs:
             -e MODEL_NAME=${{ secrets.MODEL_NAME }} \
             -e MODEL_ENDPOINT=${{ secrets.MODEL_ENDPOINT }} \
             -e DEPLOYMENT_NAME=${{ secrets.DEPLOYMENT_NAME }} \
-            -e JSON_WEB_TOKEN=${{ secrets.JSON_WEB_TOKEN }} \
+            -e CLIENT_ID=${{ secrets.CLIENT_ID }} \
+            -e PEM=${{ secrets.PEM }} \
             -e INSTALLATION=${{ secrets.INSTALLATION }} \
             -p 8080:8080 \
             spring-ai-pr-reviewer
