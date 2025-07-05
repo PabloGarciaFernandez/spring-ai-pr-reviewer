@@ -23,5 +23,5 @@ management:
 configuration:
   environment-variables:
     client-id: ${CLIENT_ID}
-    installation: ${INSTALLATION:0}
+    installation: ${INSTALLATION}
     pem: ${PEM}
