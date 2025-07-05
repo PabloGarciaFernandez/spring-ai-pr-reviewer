@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class GitHubTools {
 
-    private GitHub github;
+    private final GitHub github;
 
     @Tool(description = "Recover GitHub repository")
     public RepositoryInfo getGitHubRepository(

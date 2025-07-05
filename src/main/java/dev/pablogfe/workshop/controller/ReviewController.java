@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class ReviewController {
 
-    private ReviewService reviewService;
+    private final ReviewService reviewService;
 
     @PostMapping("review")
     public String reviewPullRequest(@RequestParam String pullrequest, @RequestParam String project) {

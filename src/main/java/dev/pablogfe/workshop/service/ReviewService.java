@@ -16,9 +16,9 @@ import java.util.Map;
 @AllArgsConstructor
 public class ReviewService {
 
-    private AzureOpenAiChatModel chatModel;
-    private SystemPromptTemplate systemPromptTemplate;
-    private GitHubTools gitHubTools;
+    private final AzureOpenAiChatModel chatModel;
+    private final SystemPromptTemplate systemPromptTemplate;
+    private final GitHubTools gitHubTools;
 
     public String review (String pullrequest, String project) {
         var userMessage = new UserMessage("""
