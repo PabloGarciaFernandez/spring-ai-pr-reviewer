@@ -21,5 +21,7 @@ management:
       show-details: always
       access: read_only
 configuration:
-  json-web-token: ${JSON_WEB_TOKEN}
-  installation: ${INSTALLATION}
+  environment-variables:
+    client-id: ${CLIENT_ID}
+    installation: ${INSTALLATION:0}
+    pem: ${PEM}
