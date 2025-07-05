@@ -18,5 +18,3 @@ jobs:
       INSTALLATION: ${{ secrets.INSTALLATION }}
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
       PEM: ${{ secrets.PEM }}
-      TEMPERATURE: ${{ secrets.TEMPERATURE }}
-      COMPLETIONS: ${{ secrets.COMPLETIONS }}
