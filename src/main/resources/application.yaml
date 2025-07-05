@@ -2,6 +2,8 @@ spring:
   application:
     name: spring-ai-workshop
   ai:
+    model:
+      chat: ${PROVIDER:none}
     azure:
       openai:
         api-key: ${MODEL_API_KEY}
@@ -10,7 +12,23 @@ spring:
           options:
             model: ${MODEL_NAME}
             deployment-name: ${DEPLOYMENT_NAME}
-            temperature: ${TEMPERATURE:1}
+            temperature: ${TEMPERATURE:0.7}
+    anthropic:
+      api-key: ${MODEL_API_KEY}
+      base-url: ${MODEL_ENDPOINT}
+      chat:
+        options:
+          model: ${MODEL_NAME}
+          temperature: ${TEMPERATURE:0.8}
+      completions-path: ${COMPLETIONS:/v1/chat/completions}
+    deepseek:
+      api-key: ${MODEL_API_KEY}
+      base-url: ${MODEL_ENDPOINT}
+      chat:
+        options:
+          model: ${MODEL_NAME}
+          temperature: ${TEMPERATURE:0.7F}
+        completions-path: ${COMPLETIONS:/chat/completions}
 management:
   endpoints:
     web:

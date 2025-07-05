@@ -26,25 +26,33 @@ jobs:
       project-name: ${{ github.repository }}
       pull-request-id: ${{ github.event.pull_request.number }}
     secrets:
+      PROVIDER: ${{ secrets.PROVIDER }}
       MODEL_API_KEY: ${{ secrets.MODEL_API_KEY }}
       MODEL_NAME: ${{ secrets.MODEL_NAME }}
       MODEL_ENDPOINT: ${{ secrets.MODEL_ENDPOINT }}
       DEPLOYMENT_NAME: ${{ secrets.DEPLOYMENT_NAME }}
-      PERSONAL_ACCESS_TOKEN: ${{ secrets.JSON_WEB_TOKEN }}
       INSTALLATION: ${{ secrets.INSTALLATION }}
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      PEM: ${{ secrets.PEM }}
+      TEMPERATURE: ${{ secrets.TEMPERATURE }}
+      COMPLETIONS: ${{ secrets.COMPLETIONS }}
 ```
 
-### 🔑 Required Secrets
+### 🔑 Secrets
 
-| 🔐 Secret Name    | 📄 Description                                                    |
-|-------------------|-------------------------------------------------------------------|
-| `MODEL_API_KEY`   | API key for the LLM provider (Azure OpenAI by default).           |
-| `MODEL_NAME`      | Name of the model (e.g., `o4-mini`).                              |
-| `MODEL_ENDPOINT`  | Endpoint URL of the Azure OpenAI resource.                        |
-| `DEPLOYMENT_NAME` | Name of the Azure OpenAI deployment.                              |
-| `PEM`             | GitHub App private key (PEM format, PKCS#8) used to sign the JWT. |
-| `CLIENT_ID`       | GitHub App ID (not a token).                                      |
-| `INSTALLATION`    | GitHub App installation ID.                                       |
+| 🔐 Secret Name    | 📄 Description                                                         | 🤖 Model             | ✅ Required |
+|-------------------|------------------------------------------------------------------------|----------------------|------------|
+| `PROVIDER`        | List of supported providers at [providers](#-notes-on-model-providers) | All                  | Yes        |
+| `MODEL_API_KEY`   | API key for the LLM provider.                                          | All                  | Yes        |
+| `MODEL_NAME`      | Name of the model (e.g., `o4-mini`).                                   | All                  | Yes        |
+| `MODEL_ENDPOINT`  | Endpoint URL of the Azure OpenAI resource.                             | All                  | Yes        |
+| `DEPLOYMENT_NAME` | Name of the Azure OpenAI deployment.                                   | Azure OpenAI         | Depends    |
+| `PEM`             | GitHub App private key (PEM format, PKCS#8) used to sign the JWT.      | All                  | Yes        |
+| `CLIENT_ID`       | GitHub App ID (not a token).                                           | All                  | Yes        |
+| `INSTALLATION`    | GitHub App installation ID.                                            | All                  | Yes        |
+| `TEMPERATURE`     | Temperature for the model.                                             | All                  | No         |
+| `COMPLETIONS`     | Completions path.                                                      | anthropic & deepseek | No         |
+
 
 > **Note:**  
 > The GitHub App private key (`.pem`) must be converted to a PKCS#8 DER format and then Base64 encoded to be properly loaded in Java.
@@ -66,12 +74,27 @@ jobs:
 > The resulting `private-key.base64` file can then be copied into your environment variable (`PEM`), for the env 
 > variable do not include the headers and fix the certificate into a single line.
 
+## 🔐 Required GitHub App Permissions  
+The GitHub App requires the following permissions to analyze and comment on pull requests:
+
+| 🔧 Scope    | 🔍 Access level |
+|-------------------|-----------------|
+| `Codespaces metadata`   | Read-only       |
+| `Contents`   | Read-only       |
+| `Pull requests`   | Read & Write    |
+	  
+You can configure these permissions when creating or modifying the GitHub App in your account or organization settings.
+
 
 ## 🌍 Notes on Model Providers
 
-This project is built on **Spring AI** and only supports Azure OpenAI.
+This project is built on **Spring AI** and the following AI model providers are supported by this project:
 
-If you want to use other providers (like OpenAI, Hugging Face, Anthropic, etc.), you’ll need to:
+- azure-openai
+- anthropic
+- deepseek
+
+If you want to use other providers, you’ll need to:
 - Add the corresponding Spring AI starter in your `pom.xml`.
 - Update the `application.yaml` with the new provider’s configuration.
 - For further information, look into this [documentation](https://docs.spring.io/spring-ai/reference/api/chatmodel.html).
