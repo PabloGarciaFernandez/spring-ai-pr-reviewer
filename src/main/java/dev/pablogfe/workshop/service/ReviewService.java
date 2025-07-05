@@ -10,6 +10,7 @@ import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,10 @@ public class ReviewService {
                 .tools(gitHubTools)
                 .call()
                 .content();
+    }
+
+    private void answerPullRequest(String pullrequest, String project) {
+        var superSystemMessage = systemPromptTemplate.createMessage(Map.of("pullrequest", pullrequest, "project", project));
     }
 
 }
