@@ -20,7 +20,7 @@ on:
         required: true
       DEPLOYMENT_NAME:
         required: true
-      PERSONAL_ACCESS_TOKEN:
+      JSON_WEB_TOKEN:
         required: true
 
 jobs:
@@ -49,14 +49,14 @@ jobs:
             -e MODEL_NAME=${{ secrets.MODEL_NAME }} \
             -e MODEL_ENDPOINT=${{ secrets.MODEL_ENDPOINT }} \
             -e DEPLOYMENT_NAME=${{ secrets.DEPLOYMENT_NAME }} \
-            -e PERSONAL_ACCESS_TOKEN=${{ secrets.PERSONAL_ACCESS_TOKEN }} \
+            -e PERSONAL_ACCESS_TOKEN=${{ secrets.JSON_WEB_TOKEN }} \
             -p 8080:8080 \
             spring-ai-pr-reviewer
 
       - name: Tail logs and wait for health
         run: |
           while ! curl -f http://localhost:8080/actuator/health; do
-            echo "Esperando que la app esté lista..."
+            echo "Waiting for the app to be ready..."
             docker logs --tail 150 spring-ai-pr-reviewer
             sleep 10
           done
@@ -64,10 +64,6 @@ jobs:
       - name: Run Review
         run: |
           curl -X POST "http://localhost:8080/review?project=${{ inputs.project-name }}&pullrequest=${{ inputs.pull-request-id }}"
-
-      - name: Logs
-        run: |
-          docker logs --tail 150 spring-ai-pr-reviewer
 
       - name: Stop and remove Reviewer container
         if: always()
