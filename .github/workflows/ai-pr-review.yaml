@@ -82,6 +82,10 @@ jobs:
         run: |
           curl -X POST "http://localhost:8080/review?project=${{ inputs.project-name }}&pullrequest=${{ inputs.pull-request-id }}"
 
+      - name: logs review
+        run: |
+          docker logs --tail 150 spring-ai-pr-reviewer
+
       - name: Stop and remove Reviewer container
         if: always()
         run: docker stop spring-ai-pr-reviewer && docker rm spring-ai-pr-reviewer
